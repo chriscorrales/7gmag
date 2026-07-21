@@ -1,0 +1,7 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Artefatos de export do Claude Design (não precisam ir pro site)
+.thumbnail
+*-print-*.dc.html

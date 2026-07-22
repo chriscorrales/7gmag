@@ -3,31 +3,36 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 
 import logo from '../assets/brand/logo.jpeg';
-import p1 from '../assets/products/produto-1.png';
-import p2 from '../assets/products/produto-2.png';
-import p3 from '../assets/products/produto-3.png';
-import p4 from '../assets/products/produto-4.png';
-import p5 from '../assets/products/produto-5.png';
-import p6 from '../assets/products/produto-6.png';
-import p7 from '../assets/products/produto-7.png';
 
 import content from '../data/content.json';
 
 const WA = 'https://wa.me/5583993727554';
 
 // ── Conteúdo editável pelo CMS (/admin) — vem de src/data/content.json ──
-const { hero, features, passos, depoimentos, faqs } = content;
+const { hero, features, catalogo, passos, depoimentos, faqs } = content;
 
-// ── Produtos: imagens ficam em código (otimizadas via astro:assets) ──
-const produtos = [
-  { img: p1, alt: 'Mule verniz com laço 7G Mag' },
-  { img: p2, alt: 'Tênis slip-on 7G Mag' },
-  { img: p3, alt: 'Sandália salto bloco 7G Mag' },
-  { img: p4, alt: 'Pulseiras magnéticas 7G Mag' },
-  { img: p5, alt: 'Chinelo masculino 7G Mag' },
-  { img: p6, alt: 'Tênis masculino 7G Mag' },
-  { img: p7, alt: 'Scarpin peep toe branco 7G Mag' },
-];
+// ── Catálogo dinâmico ──
+// As fotos ficam em src/assets/products e são enviadas pelo CMS. O Astro
+// otimiza tudo no build (WebP + srcset). O content.json guarda o caminho da
+// foto; aqui resolvemos pelo nome do arquivo para o <Image> otimizar.
+const productImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/products/*.{png,jpg,jpeg,webp,avif}',
+  { eager: true },
+);
+function resolveProduto(caminho: string | undefined) {
+  if (!caminho) return null;
+  const nome = caminho.split('/').pop();
+  const chave = Object.keys(productImages).find((k) => k.endsWith('/' + nome));
+  return chave ? productImages[chave].default : null;
+}
+
+const produtos = (catalogo?.produtos ?? [])
+  .map((p) => ({ img: resolveProduto(p.imagem), alt: p.alt }))
+  .filter((p): p is { img: ImageMetadata; alt: string } => p.img !== null);
+
+// A foto do topo (hero) é a primeira do catálogo — também editável pelo CMS.
+const heroImg = produtos[0]?.img ?? logo;
+const heroAlt = produtos[0]?.alt ?? 'Produto 7G Mag em destaque';
 ---
 
 <Base>
@@ -64,7 +69,7 @@ const produtos = [
           </div>
         </div>
         <div class="plate" style="aspect-ratio:4/5">
-          <Image src={p1} alt="Sandália 7G Mag em uso" widths={[400, 640, 900]} sizes="(min-width:960px) 40vw, 100vw" loading="eager" fetchpriority="high" />
+          <Image src={heroImg} alt={heroAlt} widths={[400, 640, 900]} sizes="(min-width:960px) 40vw, 100vw" loading="eager" fetchpriority="high" />
         </div>
       </div>
     </header>
@@ -83,9 +88,9 @@ const produtos = [
 
     <!-- ── Produtos ── -->
     <section id="produtos" class="section">
-      <div class="kicker">Catálogo</div>
-      <h2 class="h2">Linha completa para revenda</h2>
-      <p class="lead">Sandálias, tênis, chinelos e pulseiras magnéticas — para público feminino e masculino, em várias cores.</p>
+      <div class="kicker">{catalogo.kicker}</div>
+      <h2 class="h2">{catalogo.titulo}</h2>
+      <p class="lead">{catalogo.subtitulo}</p>
       <div class="produtos-grid" style="margin-top:36px">
         {produtos.map((prod) => (
           <div class="plate" style="aspect-ratio:1/1">

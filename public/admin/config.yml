@@ -43,6 +43,23 @@ collections:
             fields:
               - { label: "Título", name: titulo, widget: string }
               - { label: "Texto", name: texto, widget: text }
+          - label: "Catálogo"
+            name: catalogo
+            widget: object
+            fields:
+              - { label: "Etiqueta", name: kicker, widget: string }
+              - { label: "Título", name: titulo, widget: string }
+              - { label: "Subtítulo", name: subtitulo, widget: text }
+              - label: "Produtos (fotos)"
+                name: produtos
+                widget: list
+                summary: "{{fields.alt}}"
+                # As fotos são gravadas em src/assets/products para o Astro
+                # otimizá-las no build (WebP + srcset). Suba imagens boas de
+                # frente do produto; o site cuida do resto.
+                fields:
+                  - { label: "Foto do produto", name: imagem, widget: image, media_folder: "/src/assets/products", public_folder: "/src/assets/products" }
+                  - { label: "Descrição da foto (alt)", name: alt, widget: string, hint: "Descreve a foto para acessibilidade e Google. Ex.: Sandália salto bloco 7G Mag" }
           - label: "Como funciona (passos)"
             name: passos
             widget: list

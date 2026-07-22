@@ -1,0 +1,32 @@
+{
+  "hero": {
+    "tag": "Nova linha magnética",
+    "titulo": "Calçados com tecnologia magnética. Uma revenda com margem de verdade.",
+    "texto": "A 7G Mag desenvolve calçados e acessórios com ímãs terapêuticos embutidos — conforto, bem-estar e um diferencial que nenhuma loja de bairro tem. Torne-se revendedor oficial e comece a vender direto do seu celular, sem loja física e sem estoque parado.",
+    "cta_primario": "Quero ser revendedor",
+    "cta_secundario": "Falar com um consultor"
+  },
+  "features": [
+    { "titulo": "Conforto", "texto": "Solados leves e flexíveis, pensados para o dia a dia." },
+    { "titulo": "Tecnologia", "texto": "Ímãs terapêuticos embutidos em pulseiras e calçados." },
+    { "titulo": "Margem", "texto": "Produto exclusivo, sem concorrência de preço em vitrine." },
+    { "titulo": "Suporte", "texto": "Material de divulgação e acompanhamento próximo." }
+  ],
+  "passos": [
+    { "numero": "01", "titulo": "Fale com um consultor", "texto": "Envie o formulário ou chame no WhatsApp e conheça as condições de revenda." },
+    { "numero": "02", "titulo": "Escolha seu kit", "texto": "Monte seu mix inicial com catálogo, tabela de preços e fotos prontas para divulgar." },
+    { "numero": "03", "titulo": "Comece a vender", "texto": "Venda pelas redes ou porta a porta, com suporte da nossa equipe sempre que precisar." }
+  ],
+  "depoimentos": [
+    { "texto": "Comecei revendendo pra amigas e hoje já é minha principal fonte de renda no mês.", "autor": "Revendedora, São Paulo" },
+    { "texto": "O diferencial magnético chama atenção na hora. É fácil de vender porque é um produto diferente de tudo.", "autor": "Revendedor, Sorocaba" },
+    { "texto": "O suporte da equipe faz toda diferença — sempre tenho material novo pra postar.", "autor": "Revendedora, Curitiba" }
+  ],
+  "faqs": [
+    { "pergunta": "Preciso ter loja física para revender?", "resposta": "Não. A maioria dos nossos revendedores vende pelas redes sociais, WhatsApp e boca a boca, sem precisar de ponto físico." },
+    { "pergunta": "Qual o investimento inicial?", "resposta": "Trabalhamos com kits de entrada a partir de valores acessíveis. Um consultor te passa as opções conforme sua realidade." },
+    { "pergunta": "Como funciona a tecnologia magnética?", "resposta": "Nossos calçados e pulseiras contam com ímãs terapêuticos embutidos, associados a conforto e bem-estar no uso diário." },
+    { "pergunta": "Vocês dão suporte para divulgação?", "resposta": "Sim. Você recebe catálogo, fotos e materiais prontos para postar, além de acompanhamento da equipe 7G Mag." },
+    { "pergunta": "Posso revender em qualquer cidade do Brasil?", "resposta": "Sim, atendemos revendedores em todo o país. Fale com um consultor para saber sobre prazos e envio." }
+  ]
+}

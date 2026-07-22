@@ -1,0 +1,190 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+
+import logo from '../assets/brand/logo.jpeg';
+import p1 from '../assets/products/produto-1.png';
+import p2 from '../assets/products/produto-2.png';
+import p3 from '../assets/products/produto-3.png';
+import p4 from '../assets/products/produto-4.png';
+import p5 from '../assets/products/produto-5.png';
+import p6 from '../assets/products/produto-6.png';
+import p7 from '../assets/products/produto-7.png';
+
+import content from '../data/content.json';
+
+const WA = 'https://wa.me/5583993727554';
+
+// ── Conteúdo editável pelo CMS (/admin) — vem de src/data/content.json ──
+const { hero, features, passos, depoimentos, faqs } = content;
+
+// ── Produtos: imagens ficam em código (otimizadas via astro:assets) ──
+const produtos = [
+  { img: p1, alt: 'Mule verniz com laço 7G Mag' },
+  { img: p2, alt: 'Tênis slip-on 7G Mag' },
+  { img: p3, alt: 'Sandália salto bloco 7G Mag' },
+  { img: p4, alt: 'Pulseiras magnéticas 7G Mag' },
+  { img: p5, alt: 'Chinelo masculino 7G Mag' },
+  { img: p6, alt: 'Tênis masculino 7G Mag' },
+  { img: p7, alt: 'Scarpin peep toe branco 7G Mag' },
+];
+---
+
+<Base>
+  <div class="wrap">
+    <!-- ── Nav ── -->
+    <nav class="nav">
+      <a class="nav-brand" href="#top" aria-label="7G Mag — início">
+        <Image class="logo" src={logo} alt="7G Mag" width={40} height={40} />
+        <span class="name">7G MAG</span>
+      </a>
+      <div class="nav-links">
+        <a href="#produtos">Produtos</a>
+        <a href="#revenda">Como funciona</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#faq">Dúvidas</a>
+      </div>
+      <a class="btn btn-primary nav-cta" href="#contato">Quero revender</a>
+    </nav>
+
+    <!-- ── Hero ── -->
+    <header id="top" class="section" style="padding-top:56px">
+      <div class="hero-grid">
+        <div>
+          <span class="tag tag-accent">{hero.tag}</span>
+          <h1 style="font-weight:400;font-size:clamp(34px,8vw,64px);line-height:1.04;margin:18px 0 0">
+            {hero.titulo}
+          </h1>
+          <p class="lead" style="font-size:18px;line-height:1.65;max-width:52ch;margin-top:22px">
+            {hero.texto}
+          </p>
+          <div style="display:flex;gap:16px;margin-top:32px;flex-wrap:wrap">
+            <a class="btn btn-primary" href="#contato">{hero.cta_primario}</a>
+            <a class="btn btn-secondary" href={WA} target="_blank" rel="noopener">{hero.cta_secundario}</a>
+          </div>
+        </div>
+        <div class="plate" style="aspect-ratio:4/5">
+          <Image src={p1} alt="Sandália 7G Mag em uso" widths={[400, 640, 900]} sizes="(min-width:960px) 40vw, 100vw" loading="eager" fetchpriority="high" />
+        </div>
+      </div>
+    </header>
+
+    <!-- ── Diferenciais ── -->
+    <section class="section">
+      <div class="features-grid">
+        {features.map((f) => (
+          <div>
+            <div class="feature-title">{f.titulo}</div>
+            <p class="feature-p">{f.texto}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ── Produtos ── -->
+    <section id="produtos" class="section">
+      <div class="kicker">Catálogo</div>
+      <h2 class="h2">Linha completa para revenda</h2>
+      <p class="lead">Sandálias, tênis, chinelos e pulseiras magnéticas — para público feminino e masculino, em várias cores.</p>
+      <div class="produtos-grid" style="margin-top:36px">
+        {produtos.map((prod) => (
+          <div class="plate" style="aspect-ratio:1/1">
+            <Image src={prod.img} alt={prod.alt} widths={[280, 400, 560]} sizes="(min-width:960px) 25vw, (min-width:720px) 33vw, 50vw" />
+          </div>
+        ))}
+        <div class="plate" style="aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;filter:none">
+          <div style="font-family:var(--font-body);color:var(--color-neutral-600)">
+            <div style="font-family:var(--font-heading);font-size:22px;color:var(--color-text)">+ novidades</div>
+            <p style="margin-top:8px;font-size:14px">a cada coleção</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Como funciona ── -->
+    <section id="revenda" class="section">
+      <div class="kicker">Como funciona</div>
+      <h2 class="h2">De revendedor a negócio próprio, em 3 passos</h2>
+      <div class="passos-grid" style="margin-top:44px">
+        {passos.map((p) => (
+          <div>
+            <div class="passo-num">{p.numero}</div>
+            <div class="passo-title">{p.titulo}</div>
+            <p class="passo-p">{p.texto}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ── Depoimentos ── -->
+    <section id="depoimentos" class="section">
+      <div class="kicker">Depoimentos</div>
+      <h2 class="h2">Quem já revende 7G Mag</h2>
+      <div class="depo-grid" style="margin-top:40px">
+        {depoimentos.map((d) => (
+          <figure class="card">
+            <blockquote class="card-body" style="margin:0">"{d.texto}"</blockquote>
+            <figcaption class="card-meta">{d.autor}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+
+    <!-- ── FAQ (acordeão sem JS) ── -->
+    <section id="faq" class="section" style="max-width:900px">
+      <div class="kicker">Dúvidas frequentes</div>
+      <h2 class="h2">Perguntas de quem está começando</h2>
+      <div class="faq" style="margin-top:32px">
+        {faqs.map((f, i) => (
+          <details open={i === 0}>
+            <summary>{f.pergunta}</summary>
+            <p>{f.resposta}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- ── Contato ── -->
+    <section id="contato" class="section">
+      <div class="contato-grid">
+        <div>
+          <div class="kicker">Cadastro de revendedor</div>
+          <h2 class="h2">Quero ser revendedor 7G Mag</h2>
+          <p class="lead" style="max-width:48ch;line-height:1.6">
+            Preencha seus dados e nossa equipe entra em contato para explicar as condições de revenda. Prefere algo mais
+            rápido? Chame direto no WhatsApp.
+          </p>
+          <a class="btn btn-secondary" href={WA} target="_blank" rel="noopener" style="margin-top:22px">Falar agora no WhatsApp</a>
+        </div>
+        <div class="card elev-sm" style="padding:32px;background:var(--color-surface)">
+          <!--
+            Envio via Formspree: troque FORM_ID pelo ID real (formspree.io) para os leads
+            chegarem por e-mail. Sem JS: o próprio Formspree processa o POST e redireciona.
+          -->
+          <form action="https://formspree.io/f/FORM_ID" method="POST" style="display:flex;flex-direction:column;gap:18px">
+            <div class="field"><label for="nome">Nome completo</label><input id="nome" class="input" type="text" name="nome" required placeholder="Seu nome" autocomplete="name" /></div>
+            <div class="field"><label for="email">E-mail</label><input id="email" class="input" type="email" name="email" required placeholder="seu@email.com" autocomplete="email" /></div>
+            <div class="field"><label for="tel">Telefone / WhatsApp</label><input id="tel" class="input" type="tel" name="telefone" required placeholder="(00) 00000-0000" autocomplete="tel" /></div>
+            <div class="field"><label for="cidade">Cidade</label><input id="cidade" class="input" type="text" name="cidade" required placeholder="Sua cidade" autocomplete="address-level2" /></div>
+            <button class="btn btn-primary btn-block" type="submit">Enviar cadastro</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Footer ── -->
+    <footer class="section" style="padding-top:44px;padding-bottom:44px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <Image src={logo} alt="7G Mag" width={32} height={32} style="border-radius:var(--radius-sm)" />
+        <span style="font-family:var(--font-body);font-size:13px;color:var(--color-neutral-600)">© 2026 7G Mag. Todos os direitos reservados.</span>
+      </div>
+      <a href="https://www.instagram.com/oficial7gmag" target="_blank" rel="noopener">@oficial7gmag</a>
+    </footer>
+  </div>
+
+  <!-- ── WhatsApp flutuante ── -->
+  <a class="wa-float" href={WA} target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm0 18.13h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.14.82.84-3.06-.2-.31a8.18 8.18 0 0 1-1.26-4.36c0-4.54 3.7-8.24 8.26-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.55-3.7 8.24-8.24 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.24-.64.8-.78.97-.14.16-.29.18-.53.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.24-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.24.25-.41.08-.16.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.4-.42-.56-.42-.14-.01-.31-.01-.47-.01a.9.9 0 0 0-.66.31c-.23.24-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.57.12.16 1.75 2.67 4.24 3.75.59.26 1.06.41 1.42.52.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.11-.23-.17-.48-.29z"/></svg>
+    <span style="font-family:var(--font-body);font-size:14px">WhatsApp</span>
+  </a>
+</Base>

@@ -1,0 +1,86 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = '7G Mag — Revenda calçados magnéticos com margem de verdade',
+  description = 'Torne-se revendedor oficial 7G Mag: calçados e acessórios com tecnologia magnética. Venda pelo celular, sem loja física e sem estoque parado. Fale com um consultor.',
+  image = '/7gmag/og.png',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
+
+// Dados estruturados — Organization + Product (ajuda o Google a entender o negócio)
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: '7G Mag',
+  url: canonical,
+  logo: new URL('/7gmag/og.png', Astro.site).href,
+  description: 'Fabricante de calçados e acessórios com tecnologia magnética, com programa de revenda em todo o Brasil.',
+  sameAs: ['https://www.instagram.com/oficial7gmag'],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'sales',
+    telephone: '+55-83-99372-7554',
+    areaServed: 'BR',
+    availableLanguage: 'Portuguese',
+  },
+};
+
+const productLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'Calçados magnéticos 7G Mag',
+  description: 'Linha de calçados e pulseiras com ímãs terapêuticos embutidos — sandálias, tênis, chinelos e pulseiras, para revenda.',
+  brand: { '@type': 'Brand', name: '7G Mag' },
+  category: 'Calçados magnéticos',
+};
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#b68235" />
+
+    <!-- Fontes (preconnect para não travar o render) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Lora:wght@400;600&display=swap"
+    />
+
+    <!-- Open Graph / redes sociais (preview no WhatsApp) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="7G Mag" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" href="/7gmag/favicon.svg" type="image/svg+xml" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(productLd)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

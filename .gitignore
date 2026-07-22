@@ -2,6 +2,12 @@
 .DS_Store
 Thumbs.db
 
+# Node / Astro
+node_modules/
+dist/
+.astro/
+*.log
+
 # Artefatos de export do Claude Design (não precisam ir pro site)
 .thumbnail
 *-print-*.dc.html

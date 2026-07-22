@@ -1,0 +1,67 @@
+# ── Sveltia CMS — configuração do painel de conteúdo da 7G Mag ──
+# Docs: https://github.com/sveltia/sveltia-cms
+
+backend:
+  name: github
+  repo: chriscorrales/7gmag
+  branch: main
+  # Login via GitHub FORA do localhost (produção) precisa de um relay OAuth.
+  # Passo a passo na nota do projeto. Descomente e aponte para o worker:
+  # base_url: https://SEU-WORKER.workers.dev
+  #
+  # No localhost o Sveltia oferece "Work with Local Repository" e edita os
+  # arquivos direto no seu repo local — não precisa de OAuth para testar.
+
+# Onde ficam as imagens enviadas pelo painel (ainda não usado no POC —
+# os produtos hoje estão em código; entra quando modelarmos o catálogo).
+media_folder: "public/uploads"
+public_folder: "/7gmag/uploads"
+
+collections:
+  - name: site
+    label: "Conteúdo do site"
+    delete: false
+    files:
+      - name: home
+        label: "Página inicial"
+        file: "src/data/content.json"
+        description: "Textos da home: topo, vantagens, passos, depoimentos e dúvidas."
+        fields:
+          - label: "Topo (hero)"
+            name: hero
+            widget: object
+            fields:
+              - { label: "Etiqueta", name: tag, widget: string }
+              - { label: "Título", name: titulo, widget: text }
+              - { label: "Texto", name: texto, widget: text }
+              - { label: "Botão principal", name: cta_primario, widget: string }
+              - { label: "Botão secundário", name: cta_secundario, widget: string }
+          - label: "Vantagens"
+            name: features
+            widget: list
+            summary: "{{fields.titulo}}"
+            fields:
+              - { label: "Título", name: titulo, widget: string }
+              - { label: "Texto", name: texto, widget: text }
+          - label: "Como funciona (passos)"
+            name: passos
+            widget: list
+            summary: "{{fields.numero}} — {{fields.titulo}}"
+            fields:
+              - { label: "Número", name: numero, widget: string }
+              - { label: "Título", name: titulo, widget: string }
+              - { label: "Texto", name: texto, widget: text }
+          - label: "Depoimentos"
+            name: depoimentos
+            widget: list
+            summary: "{{fields.autor}}"
+            fields:
+              - { label: "Texto", name: texto, widget: text }
+              - { label: "Autor", name: autor, widget: string }
+          - label: "Dúvidas (FAQ)"
+            name: faqs
+            widget: list
+            summary: "{{fields.pergunta}}"
+            fields:
+              - { label: "Pergunta", name: pergunta, widget: string }
+              - { label: "Resposta", name: resposta, widget: text }

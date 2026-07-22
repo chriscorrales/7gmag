@@ -5,9 +5,10 @@ backend:
   name: github
   repo: chriscorrales/7gmag
   branch: main
-  # Login via GitHub FORA do localhost (produção) precisa de um relay OAuth.
-  # Passo a passo na nota do projeto. Descomente e aponte para o worker:
-  # base_url: https://SEU-WORKER.workers.dev
+  # Relay OAuth (Cloudflare Worker) que permite o login "Sign in with GitHub"
+  # em produção, fora do localhost. Código do worker em:
+  # "7G Mag projeto/sveltia-cms-auth".
+  base_url: https://sveltia-cms-auth.chriscorrales29.workers.dev
   #
   # No localhost o Sveltia oferece "Work with Local Repository" e edita os
   # arquivos direto no seu repo local — não precisa de OAuth para testar.

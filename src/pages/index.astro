@@ -51,10 +51,29 @@ const navLinks = [
         <Image class="logo" src={logo} alt="" width={40} height={40} />
         <span class="name">7G MAG</span>
       </a>
-      <div class="nav-links">
-        {navLinks.map((l) => <a href={l.href}>{l.label}</a>)}
+
+      <div class="nav-right">
+        <div class="nav-links nav-links--desktop">
+          {navLinks.map((l) => <a href={l.href}>{l.label}</a>)}
+        </div>
+
+        <a class="btn btn-primary nav-cta" href="#contato">Quero revender</a>
+
+        <!-- Menu mobile sem JS: mesmo padrão do acordeão do FAQ. Sem aria-expanded
+             de propósito — o <summary> já expõe role=button + estado nativamente,
+             e um aria-expanded escrito à mão ficaria permanentemente desatualizado
+             sem JS pra sincronizar. -->
+        <details class="nav-menu">
+          <summary class="nav-toggle" aria-label="Abrir menu de navegação">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M3 6h18M3 12h18M3 18h18" />
+            </svg>
+          </summary>
+          <div class="nav-links nav-links--gaveta">
+            {navLinks.map((l) => <a href={l.href}>{l.label}</a>)}
+          </div>
+        </details>
       </div>
-      <a class="btn btn-primary nav-cta" href="#contato">Quero revender</a>
     </nav>
 
     <!-- ── Hero ── -->

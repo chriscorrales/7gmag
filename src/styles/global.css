@@ -228,17 +228,51 @@ a:hover { color: var(--color-accent-900); text-decoration: underline; }
 .wa-float:hover { background: var(--color-neutral-800); color: #fff; text-decoration: none; }
 .wa-float .rotulo { font-family: var(--font-body); font-size: 14px; }
 
-/* — nav (mobile-first: links empilhados, sem overflow horizontal) — */
+/* — nav (mobile-first: menu hambúrguer sem JS, igual ao acordeão do FAQ) — */
 .nav {
+  position: relative;
   display: flex; align-items: center; justify-content: space-between;
   gap: 12px; padding: 16px 20px;
   border-bottom: 1px solid var(--color-divider);
 }
-.nav-brand { display: flex; align-items: center; gap: 12px; }
-.nav-brand .logo { width: 40px; height: 40px; object-fit: cover; border-radius: var(--radius-sm); }
-.nav-brand .name { font-family: var(--font-heading); font-size: clamp(17px, 0.94vw + 14px, 20px); font-weight: var(--font-heading-weight); letter-spacing: 0.02em; }
-.nav-links { display: none; }
+.nav-brand { display: flex; align-items: center; gap: 12px; min-width: 0; color: var(--color-text); }
+.nav-brand:hover { text-decoration: none; }
+.nav-brand .logo { width: 40px; height: 40px; flex: none; object-fit: cover; border-radius: var(--radius-sm); }
+.nav-brand .name { font-family: var(--font-heading); font-size: clamp(17px, 0.94vw + 14px, 20px); font-weight: var(--font-heading-weight); letter-spacing: 0.02em; white-space: nowrap; }
+
+.nav-right { display: flex; align-items: center; gap: 8px; }
+.nav-links--desktop { display: none; }
 .nav-cta { display: inline-flex; }
+
+.nav-toggle {
+  list-style: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; cursor: pointer;
+  color: var(--color-text);
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+}
+.nav-toggle::-webkit-details-marker { display: none; }
+.nav-menu[open] .nav-toggle { background: var(--color-surface); }
+
+/* O navegador já suprime a pintura do conteúdo não-summary de um <details>
+   fechado por conta própria (não é via display:none — é um estado interno
+   de renderização, confirmado testando com display:flex incondicional: o
+   conteúdo continua invisível fechado). Escopar em [open] aqui é só clareza,
+   não necessidade. */
+.nav-menu[open] .nav-links--gaveta {
+  display: flex;
+  position: absolute; z-index: 60; top: calc(100% + 1px); left: 16px; right: 16px;
+  flex-direction: column; padding: 6px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+}
+.nav-links--gaveta a {
+  display: flex; align-items: center; min-height: 44px; padding: 12px 14px;
+  font-family: var(--font-body); font-size: 16px; color: var(--color-text);
+  border-radius: var(--radius-sm);
+}
+.nav-links--gaveta a:hover { background: var(--color-bg); color: var(--color-accent-700); text-decoration: none; }
 
 .hero-title { font-weight: 400; font-size: clamp(30px, 6vw + 11px, 64px); line-height: 1.04; margin: 18px 0 0; }
 .hero-lead { font-size: clamp(16px, 0.63vw + 14px, 18px); line-height: 1.65; max-width: 52ch; margin-top: 22px; }
@@ -309,9 +343,12 @@ a:hover { color: var(--color-accent-900); text-decoration: underline; }
 @media (min-width: 960px) {
   .section { padding: 96px 40px; }
   .hero-plate { aspect-ratio: 4 / 5; }
-  .nav-links { display: flex; align-items: center; gap: 28px; }
-  .nav-links a { font-family: var(--font-body); font-size: 14px; color: var(--color-text); }
-  .nav-links a:hover { color: var(--color-accent-700); }
+  .nav { padding: 16px 40px; }
+  .nav-right { gap: 28px; }
+  .nav-menu { display: none; }
+  .nav-links--desktop { display: flex; align-items: center; gap: 28px; }
+  .nav-links--desktop a { font-family: var(--font-body); font-size: 14px; color: var(--color-text); }
+  .nav-links--desktop a:hover { color: var(--color-accent-700); }
   .hero-grid { grid-template-columns: 1.1fr 1fr; align-items: center; gap: 56px; }
   .features-grid { grid-template-columns: repeat(4, 1fr); gap: 32px; }
   .produtos-grid { grid-template-columns: repeat(4, 1fr); gap: 24px; }

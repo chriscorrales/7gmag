@@ -305,6 +305,14 @@ a:hover { color: var(--color-accent-900); text-decoration: underline; }
 .btn-contato { margin-top: 22px; }
 
 .form-revenda { display: flex; flex-direction: column; gap: 18px; }
+.form-hint { font-size: 13px; color: var(--color-neutral-700); margin: -6px 0 0; }
+.form-retorno {
+  padding: 14px 16px; border-radius: var(--radius-md);
+  background: var(--color-accent-100); color: var(--color-accent-900);
+  font-size: 14px; line-height: 1.5;
+}
+.form-retorno p { margin: 6px 0 0; }
+.form-retorno a { color: var(--color-accent-900); text-decoration: underline; }
 
 .site-footer {
   padding-top: 44px; padding-bottom: 96px; /* espaço reservado pro FAB do WhatsApp não cobrir o link do Instagram */

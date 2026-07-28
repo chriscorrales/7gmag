@@ -8,6 +8,13 @@ import content from '../data/content.json';
 
 const WA = 'https://wa.me/5583993727554';
 
+// ⚠️ TROCAR DEPOIS — e-mail que recebe os cadastros de revendedor.
+// Hoje aponta para o e-mail do desenvolvedor, só pra testar o fluxo.
+// Quando a Shirley/Edmilson definirem o e-mail oficial da 7G Mag (de
+// preferência um alias tipo revenda@..., não uma caixa pessoal — o
+// endereço fica exposto em HTML estático), trocar só esta linha.
+const EMAIL_LEADS = 'chriscorrales29@gmail.com';
+
 // ── Conteúdo editável pelo CMS (/admin) — vem de src/data/content.json ──
 const { hero, features, catalogo, passos, depoimentos, faqs } = content;
 
@@ -187,16 +194,81 @@ const navLinks = [
         </div>
         <div class="card elev-sm card-form">
           <!--
-            Envio via Formspree: troque FORM_ID pelo ID real (formspree.io) para os leads
-            chegarem por e-mail. Sem JS: o próprio Formspree processa o POST e redireciona.
+            Sem backend: o formulário abre o app de e-mail do lead com o
+            cadastro já preenchido (assunto + corpo). method=post + enctype=
+            text/plain é o fallback sem JS (funciona nativamente em Firefox/
+            Chrome/Safari); o script logo abaixo monta uma mensagem legível
+            e assume o clique quando há JS.
           -->
-          <form action="https://formspree.io/f/FORM_ID" method="POST" class="form-revenda">
-            <div class="field"><label for="nome">Nome completo</label><input id="nome" class="input" type="text" name="nome" required placeholder="Seu nome" autocomplete="name" /></div>
-            <div class="field"><label for="email">E-mail</label><input id="email" class="input" type="email" name="email" required placeholder="seu@email.com" autocomplete="email" /></div>
-            <div class="field"><label for="tel">Telefone / WhatsApp</label><input id="tel" class="input" type="tel" name="telefone" required placeholder="(00) 00000-0000" autocomplete="tel" /></div>
-            <div class="field"><label for="cidade">Cidade</label><input id="cidade" class="input" type="text" name="cidade" required placeholder="Sua cidade" autocomplete="address-level2" /></div>
-            <button class="btn btn-primary btn-block" type="submit">Enviar cadastro</button>
+          <form
+            id="form-revenda"
+            class="form-revenda"
+            method="post"
+            enctype="text/plain"
+            action={`mailto:${EMAIL_LEADS}`}
+            data-destino={EMAIL_LEADS}
+          >
+            <div class="field"><label for="nome">Nome completo</label><input id="nome" class="input" type="text" name="nome" required placeholder="Seu nome" autocomplete="name" autocapitalize="words" /></div>
+            <div class="field"><label for="email">E-mail</label><input id="email" class="input" type="email" name="email" required placeholder="seu@email.com" autocomplete="email" autocapitalize="off" autocorrect="off" spellcheck="false" /></div>
+            <div class="field"><label for="tel">Telefone / WhatsApp</label><input id="tel" class="input" type="tel" name="telefone" required placeholder="(00) 00000-0000" autocomplete="tel" inputmode="tel" /></div>
+            <div class="field"><label for="cidade">Cidade</label><input id="cidade" class="input" type="text" name="cidade" required placeholder="Sua cidade" autocomplete="address-level2" autocapitalize="words" /></div>
+
+            <button class="btn btn-primary btn-block" type="submit">Enviar cadastro por e-mail</button>
+
+            <p class="form-hint">
+              Ao enviar, abrimos o aplicativo de e-mail do seu celular com a mensagem já pronta — é só tocar em
+              <strong>enviar</strong> lá.
+            </p>
+
+            <div id="form-retorno" class="form-retorno" role="status" tabindex="-1" hidden>
+              <strong>Pronto! Abrimos seu aplicativo de e-mail com o cadastro preenchido.</strong>
+              <p>
+                Não abriu nada? Sem problema: fale com a gente no
+                <a href={WA} target="_blank" rel="noopener">WhatsApp</a>
+                ou escreva para <a href={`mailto:${EMAIL_LEADS}`}>{EMAIL_LEADS}</a>.
+              </p>
+            </div>
+
+            <noscript>
+              <p class="form-hint">
+                Seu navegador está sem JavaScript. O botão acima ainda abre seu programa de e-mail, mas se preferir
+                fale no <a href={WA} target="_blank" rel="noopener">WhatsApp</a>.
+              </p>
+            </noscript>
           </form>
+
+          <script is:inline>
+            (function () {
+              var form = document.getElementById('form-revenda');
+              if (!form) return;
+              var retorno = document.getElementById('form-retorno');
+
+              form.addEventListener('submit', function (evento) {
+                evento.preventDefault();
+
+                var dados = new FormData(form);
+                var v = function (campo) { return String(dados.get(campo) || '').trim(); };
+
+                var assunto = 'Quero ser revendedor 7G Mag - ' + v('nome');
+                var corpo =
+                  'Nome: ' + v('nome') + '\n' +
+                  'E-mail: ' + v('email') + '\n' +
+                  'Telefone/WhatsApp: ' + v('telefone') + '\n' +
+                  'Cidade: ' + v('cidade') + '\n\n' +
+                  'Cadastro enviado pelo site da 7G Mag.';
+
+                if (retorno) {
+                  retorno.hidden = false;
+                  retorno.focus();
+                }
+
+                window.location.href =
+                  'mailto:' + form.dataset.destino +
+                  '?subject=' + encodeURIComponent(assunto) +
+                  '&body=' + encodeURIComponent(corpo);
+              });
+            })();
+          </script>
         </div>
       </div>
     </section>

@@ -6,8 +6,15 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://chriscorrales.github.io',
   base: '/7gmag',
-  trailingSlash: 'ignore',
-  integrations: [sitemap()],
+  trailingSlash: 'always',
+  integrations: [
+    sitemap({
+      // O sitemap lista a home 2x (com e sem barra final) — vem de dois
+      // caminhos internos independentes do @astrojs/sitemap, trailingSlash
+      // não resolve isso sozinho. Mantém só a URL que o GitHub Pages serve.
+      filter: (page) => page.endsWith('/'),
+    }),
+  ],
   build: {
     inlineStylesheets: 'always',
   },

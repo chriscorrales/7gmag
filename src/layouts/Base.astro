@@ -8,10 +8,14 @@ interface Props {
   image?: string;
 }
 
+// Monta caminhos absolutos a partir do BASE_URL em vez de hardcodar "/7gmag" —
+// isso quebraria silenciosamente quando o domínio próprio entrar e base virar "/".
+const comBase = (p: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+
 const {
   title = '7G Mag — Revenda calçados magnéticos com margem de verdade',
   description = 'Torne-se revendedor oficial 7G Mag: calçados e acessórios com tecnologia magnética. Venda pelo celular, sem loja física e sem estoque parado. Fale com um consultor.',
-  image = '/7gmag/og.png',
+  image = comBase('og.jpg'),
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
@@ -23,7 +27,7 @@ const orgLd = {
   '@type': 'Organization',
   name: '7G Mag',
   url: canonical,
-  logo: new URL('/7gmag/og.png', Astro.site).href,
+  logo: new URL(comBase('og.jpg'), Astro.site).href,
   description: 'Fabricante de calçados e acessórios com tecnologia magnética, com programa de revenda em todo o Brasil.',
   sameAs: ['https://www.instagram.com/oficial7gmag'],
   contactPoint: {
@@ -67,13 +71,16 @@ const productLd = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="7G Mag — calçados com tecnologia magnética" />
     <meta property="og:locale" content="pt_BR" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <link rel="icon" href="/7gmag/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={comBase('favicon.svg')} type="image/svg+xml" />
 
     <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
     <script type="application/ld+json" set:html={JSON.stringify(productLd)} />

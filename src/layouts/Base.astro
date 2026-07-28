@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { Font } from 'astro:assets';
 
 interface Props {
   title?: string;
@@ -54,13 +55,10 @@ const productLd = {
     <link rel="canonical" href={canonical} />
     <meta name="theme-color" content="#b68235" />
 
-    <!-- Fontes (preconnect para não travar o render) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Lora:wght@400;600&display=swap"
-    />
+    <!-- Fontes auto-hospedadas (astro:assets, experimental.fonts) — sem CDN
+         do Google, sem round-trip cross-origin bloqueando o render. -->
+    <Font cssVariable="--font-heading" preload />
+    <Font cssVariable="--font-body" preload />
 
     <!-- Open Graph / redes sociais (preview no WhatsApp) -->
     <meta property="og:type" content="website" />

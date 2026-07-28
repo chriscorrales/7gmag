@@ -25,9 +25,10 @@
   --color-accent-800: #5a3b0a;
   --color-accent-900: #3a270d;
 
-  --font-heading: "Cormorant Garamond", Georgia, serif;
+  /* --font-heading e --font-body NÃO ficam aqui — o componente <Font> (Base.astro)
+     já gera essas variáveis a partir de experimental.fonts (astro.config.mjs).
+     Declarar as duas de novo criaria disputa de cascata entre dois <style>. */
   --font-heading-weight: 600;
-  --font-body: "Lora", Georgia, serif;
 
   --space-1: 4.6px;
   --space-2: 9.2px;

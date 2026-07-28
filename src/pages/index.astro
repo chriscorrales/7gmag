@@ -152,14 +152,52 @@ const navLinks = [
             />
           </div>
         ))}
-        <div class="plate plate--quadrado plate--mais">
+        <a href="#novidades" class="plate plate--quadrado plate--mais" aria-haspopup="dialog">
           <div class="plate-more">
             <div class="plate-more-title">+ novidades</div>
             <p>a cada coleção</p>
           </div>
-        </div>
+        </a>
       </div>
     </section>
+
+    <!--
+      Modal "+ novidades" — CSS puro via :target (mesmo espírito do FAQ/
+      hambúrguer, zero JS). Limitação conhecida: sem JS não dá pra
+      gerenciar foco/aria-hidden dinamicamente como um <dialog> de
+      verdade faria — aceitável aqui pelo mesmo motivo do hambúrguer sem
+      aria-expanded (documentado em Base.astro/global.css).
+
+      Conteúdo é PLACEHOLDER a pedido do Christian — Shirley/Edmilson vão
+      complementar com fotos e specs reais depois.
+    -->
+    <div id="novidades" class="modal" role="dialog" aria-modal="true" aria-labelledby="novidades-titulo">
+      <a href="#produtos" class="modal-fundo" aria-label="Fechar"></a>
+      <div class="modal-conteudo card elev-sm">
+        <a href="#produtos" class="modal-fechar" aria-label="Fechar">×</a>
+        <div class="kicker">Prévia</div>
+        <h3 id="novidades-titulo" class="h2 modal-titulo">Mais novidades da coleção</h3>
+        <p class="lead">Novas cores e modelos chegando a cada lançamento — dá uma espiada em mais fotos e nos detalhes técnicos da linha.</p>
+
+        <div class="modal-galeria">
+          {produtos.slice(0, 4).map((prod) => (
+            <div class="plate plate--quadrado">
+              <Image src={prod.img} alt={prod.alt} widths={[200, 280]} sizes="140px" />
+            </div>
+          ))}
+        </div>
+
+        <h4 class="modal-subtitulo">Detalhes técnicos</h4>
+        <dl class="modal-specs">
+          <div><dt>Material</dt><dd>Verniz sintético e tecido respirável</dd></div>
+          <div><dt>Tecnologia magnética</dt><dd>Ímãs terapêuticos embutidos no solado</dd></div>
+          <div><dt>Peso aproximado</dt><dd>320g o par (varia por modelo)</dd></div>
+          <div><dt>Cores disponíveis</dt><dd>6 cores por coleção</dd></div>
+          <div><dt>Garantia</dt><dd>90 dias contra defeito de fabricação</dd></div>
+        </dl>
+        <p class="form-hint">* Fotos e especificações de exemplo — em atualização com os dados reais dos produtos.</p>
+      </div>
+    </div>
 
     <!-- ── Como funciona ── -->
     <section id="revenda" class="section">

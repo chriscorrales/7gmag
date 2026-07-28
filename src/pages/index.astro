@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, Picture } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 
 import logo from '../assets/brand/logo.jpeg';
@@ -100,7 +100,16 @@ const navLinks = [
           </div>
         </div>
         <div class="plate hero-plate">
-          <Image src={heroImg} alt={heroAlt} widths={[400, 640, 900]} sizes="(min-width:960px) 40vw, 100vw" loading="eager" fetchpriority="high" />
+          <Picture
+            src={heroImg}
+            alt={heroAlt}
+            formats={['avif']}
+            fallbackFormat="webp"
+            widths={[400, 640, 900, 1280]}
+            sizes="(min-width:1360px) 544px, (min-width:960px) 40vw, 100vw"
+            width={1280}
+            loading="eager"
+          />
         </div>
       </div>
     </header>
@@ -125,7 +134,14 @@ const navLinks = [
       <div class="produtos-grid">
         {produtos.map((prod) => (
           <div class="plate plate--quadrado">
-            <Image src={prod.img} alt={prod.alt} widths={[280, 400, 560]} sizes="(min-width:960px) 25vw, (min-width:720px) 33vw, 50vw" />
+            <Image
+              src={prod.img}
+              alt={prod.alt}
+              widths={[280, 400, 560, 700]}
+              sizes="(min-width:1360px) 316px, (min-width:960px) 25vw, (min-width:720px) 33vw, 50vw"
+              width={700}
+              quality={70}
+            />
           </div>
         ))}
         <div class="plate plate--quadrado plate--mais">

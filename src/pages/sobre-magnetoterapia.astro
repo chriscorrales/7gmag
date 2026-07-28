@@ -1,0 +1,66 @@
+---
+import Base from '../layouts/Base.astro';
+
+const WA = 'https://wa.me/5583993727554';
+const comBase = (p: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+---
+
+<Base
+  title="O que é magnetoterapia? — 7G Mag"
+  description="Entenda o que é a magnetoterapia, de onde vem o conceito, o que os fabricantes afirmam e o que a ciência diz sobre o uso de ímãs para bem-estar."
+>
+  <div class="wrap">
+    <header class="section section--hero">
+      <a class="btn btn-secondary" href={`${comBase('')}#faq`}>← Voltar para o site</a>
+      <span class="tag tag-accent pagina-tag">Sobre a tecnologia</span>
+      <h1 class="hero-title">O que é magnetoterapia?</h1>
+      <p class="lead hero-lead">
+        Um resumo simples do conceito por trás dos produtos com ímãs — o que se afirma, de onde vem a ideia, e o que
+        vale saber antes de comprar ou revender.
+      </p>
+    </header>
+
+    <section class="section section--estreita">
+      <h2 class="h2">A ideia por trás do conceito</h2>
+      <p class="lead lead--paragrafo">
+        A magnetoterapia é uma prática de medicina alternativa que propõe o uso de ímãs — em pulseiras, palmilhas,
+        colchões ou, como no caso da 7G Mag, embutidos em calçados — posicionados próximos ao corpo. A ideia,
+        popularizada há décadas em produtos de bem-estar, é que o campo magnético gerado pelos ímãs possa favorecer a
+        circulação sanguínea local e, com isso, contribuir para uma sensação de conforto e relaxamento muscular ao
+        longo do dia.
+      </p>
+    </section>
+
+    <section class="section section--estreita">
+      <h2 class="h2">O que os produtos com ímãs prometem</h2>
+      <p class="lead lead--paragrafo">
+        Fabricantes e vendedores de produtos magnéticos costumam associar o uso a benefícios como alívio de
+        desconforto muscular leve, sensação de bem-estar e conforto térmico. São produtos voltados para quem busca
+        conforto no dia a dia — não são dispositivos médicos e não substituem diagnóstico, tratamento ou orientação de
+        um profissional de saúde.
+      </p>
+    </section>
+
+    <section class="section section--estreita">
+      <h2 class="h2">O que diz a ciência</h2>
+      <p class="lead lead--paragrafo">
+        A evidência científica sobre a eficácia da magnetoterapia para tratar dor ou condições de saúde ainda é
+        considerada limitada e inconclusiva pela maior parte da literatura médica — os efeitos relatados por usuários
+        variam bastante de pessoa para pessoa, e boa parte pode estar ligada ao conforto do próprio produto (um
+        calçado bem feito, leve e confortável) e não ao campo magnético em si. Isso não significa que o produto não
+        tenha valor — muita gente relata gostar do conforto e do design —, apenas que é importante ter expectativa
+        realista: é um produto de bem-estar e estilo, não um tratamento médico comprovado.
+      </p>
+    </section>
+
+    <section class="section section--estreita">
+      <h2 class="h2">Nosso compromisso</h2>
+      <p class="lead lead--paragrafo">
+        A 7G Mag vende calçados e acessórios com tecnologia magnética como produtos de conforto e bem-estar. Se você
+        tem alguma condição de saúde, usa marca-passo ou outro dispositivo médico eletrônico, converse com seu médico
+        antes de usar produtos magnéticos.
+      </p>
+      <a class="btn btn-primary btn-contato" href={WA} target="_blank" rel="noopener">Tirar dúvidas no WhatsApp</a>
+    </section>
+  </div>
+</Base>

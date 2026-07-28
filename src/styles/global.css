@@ -267,6 +267,17 @@ a:hover { color: var(--color-accent-900); text-decoration: underline; }
   margin: 0 0 20px; line-height: 1.6; max-width: 70ch;
 }
 .faq { margin-top: 32px; }
+
+/* — destaque pontual (ex.: pergunta sobre a tecnologia magnética) — */
+.faq-pergunta { display: flex; flex-direction: column; gap: 6px; }
+.faq-badge { align-self: flex-start; }
+.faq-destaque {
+  background: var(--color-accent-100);
+  border-bottom-color: transparent;
+  border-radius: var(--radius-md);
+  padding: 6px 16px;
+  margin: 0 -16px 4px;
+}
 .section--estreita { max-width: 900px; }
 
 /* — WhatsApp flutuante — */
@@ -355,6 +366,8 @@ a:hover { color: var(--color-accent-900); text-decoration: underline; }
 }
 
 .lead--contato { max-width: 48ch; line-height: 1.6; }
+.lead--paragrafo { max-width: 70ch; }
+.pagina-tag { display: block; margin-top: 24px; }
 .btn-contato { margin-top: 22px; }
 
 .form-revenda { display: flex; flex-direction: column; gap: 18px; }

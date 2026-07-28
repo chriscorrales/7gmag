@@ -8,6 +8,10 @@ import content from '../data/content.json';
 
 const WA = 'https://wa.me/5583993727554';
 
+// Mesmo helper do Base.astro — monta caminhos a partir do BASE_URL em vez de
+// hardcodar "/7gmag" (quebraria ao migrar pro domínio próprio).
+const comBase = (p: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+
 // ⚠️ TROCAR DEPOIS — e-mail que recebe os cadastros de revendedor.
 // Hoje aponta para o e-mail do desenvolvedor, só pra testar o fluxo.
 // Quando a Shirley/Edmilson definirem o e-mail oficial da 7G Mag (de
@@ -233,12 +237,32 @@ const navLinks = [
       <div class="kicker">Dúvidas frequentes</div>
       <h2 class="h2">Perguntas de quem está começando</h2>
       <div class="faq">
-        {faqs.map((f, i) => (
-          <details open={i === 0}>
-            <summary>{f.pergunta}</summary>
-            <p>{f.resposta}</p>
-          </details>
-        ))}
+        {faqs.map((f, i) => {
+          // Destaque pontual pra pergunta sobre a tecnologia magnética — casa
+          // pelo texto porque o FAQ é genérico (editável pelo CMS); se a
+          // pergunta for reescrita no painel, o destaque some sozinho até
+          // alguém atualizar este texto aqui também.
+          const destaque = f.pergunta === 'Como funciona a tecnologia magnética?';
+          return (
+            <details open={i === 0} class={destaque ? 'faq-destaque' : undefined}>
+              <summary>
+                <span class="faq-pergunta">
+                  {destaque && <span class="tag tag-accent faq-badge">Mais perguntada</span>}
+                  {f.pergunta}
+                </span>
+              </summary>
+              <p>
+                {f.resposta}
+                {destaque && (
+                  <>
+                    {' '}
+                    <a href={comBase('sobre-magnetoterapia/')} target="_blank" rel="noopener">Saiba mais →</a>
+                  </>
+                )}
+              </p>
+            </details>
+          );
+        })}
       </div>
     </section>
 

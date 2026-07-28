@@ -4,7 +4,9 @@
     "titulo": "Calçados com tecnologia magnética. Uma revenda com margem de verdade.",
     "texto": "A 7G Mag desenvolve calçados e acessórios com ímãs terapêuticos embutidos — conforto, bem-estar e um diferencial que nenhuma loja de bairro tem. Torne-se revendedor oficial e comece a vender direto do seu celular, sem loja física e sem estoque parado.",
     "cta_primario": "Quero ser revendedor",
-    "cta_secundario": "Falar com um consultor"
+    "cta_secundario": "Falar com um consultor",
+    "imagem": "/src/assets/products/produto-1.png",
+    "alt": "Mule verniz com laço 7G Mag"
   },
   "features": [
     {
@@ -29,13 +31,34 @@
     "titulo": "Linha completa para revenda",
     "subtitulo": "Sandálias, tênis, chinelos e pulseiras magnéticas — para público feminino e masculino, em várias cores.",
     "produtos": [
-      { "imagem": "/src/assets/products/produto-1.png", "alt": "Mule verniz com laço 7G Mag" },
-      { "imagem": "/src/assets/products/produto-2.png", "alt": "Tênis slip-on 7G Mag" },
-      { "imagem": "/src/assets/products/produto-3.png", "alt": "Sandália salto bloco 7G Mag" },
-      { "imagem": "/src/assets/products/produto-4.png", "alt": "Pulseiras magnéticas 7G Mag" },
-      { "imagem": "/src/assets/products/produto-5.png", "alt": "Chinelo masculino 7G Mag" },
-      { "imagem": "/src/assets/products/produto-6.png", "alt": "Tênis masculino 7G Mag" },
-      { "imagem": "/src/assets/products/produto-7.png", "alt": "Scarpin peep toe branco 7G Mag" }
+      {
+        "imagem": "/src/assets/products/produto-1.png",
+        "alt": "Mule verniz com laço 7G Mag"
+      },
+      {
+        "imagem": "/src/assets/products/produto-2.png",
+        "alt": "Tênis slip-on 7G Mag"
+      },
+      {
+        "imagem": "/src/assets/products/produto-3.png",
+        "alt": "Sandália salto bloco 7G Mag"
+      },
+      {
+        "imagem": "/src/assets/products/produto-4.png",
+        "alt": "Pulseiras magnéticas 7G Mag"
+      },
+      {
+        "imagem": "/src/assets/products/produto-5.png",
+        "alt": "Chinelo masculino 7G Mag"
+      },
+      {
+        "imagem": "/src/assets/products/produto-6.png",
+        "alt": "Tênis masculino 7G Mag"
+      },
+      {
+        "imagem": "/src/assets/products/produto-7.png",
+        "alt": "Scarpin peep toe branco 7G Mag"
+      }
     ]
   },
   "passos": [

@@ -37,6 +37,8 @@ collections:
               - { label: "Texto", name: texto, widget: text }
               - { label: "Botão principal", name: cta_primario, widget: string }
               - { label: "Botão secundário", name: cta_secundario, widget: string }
+              - { label: "Foto do topo (hero)", name: imagem, widget: image, media_folder: "/src/assets/products", public_folder: "/src/assets/products", hint: "Independente do catálogo abaixo — trocar aqui não reordena os produtos." }
+              - { label: "Descrição da foto do topo (alt)", name: alt, widget: string }
           - label: "Vantagens"
             name: features
             widget: list

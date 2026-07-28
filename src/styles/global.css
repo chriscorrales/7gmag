@@ -269,8 +269,8 @@ a:hover { color: var(--color-accent-900); text-decoration: underline; }
 .faq { margin-top: 32px; }
 
 /* — destaque pontual (ex.: pergunta sobre a tecnologia magnética) — */
-.faq-pergunta { display: flex; flex-direction: column; gap: 6px; }
-.faq-badge { align-self: flex-start; }
+.faq-pergunta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.faq-badge { flex-shrink: 0; }
 .faq-destaque {
   background: var(--color-accent-100);
   border-bottom-color: transparent;
@@ -413,6 +413,7 @@ a:hover { color: var(--color-accent-900); text-decoration: underline; }
    em vez de deixar meia página vazia. Some quando o form for reativado. */
 .contato-grid--simples { max-width: 640px; margin-inline: auto; text-align: center; }
 .contato-grid--simples .btn-contato { margin-inline: auto; }
+.contato-grid--simples .lead--contato { margin-inline: auto; } /* max-width:48ch deixava o parágrafo com box mais estreito que o título, "puxado" pra esquerda mesmo com o texto centralizado dentro dele */
 
 /* nenhum item de grid pode ser forçado mais largo que a própria coluna —
    é o que evita o estouro horizontal em 280px */

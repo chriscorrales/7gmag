@@ -269,8 +269,11 @@ a:hover { color: var(--color-accent-900); text-decoration: underline; }
 .faq { margin-top: 32px; }
 
 /* — destaque pontual (ex.: pergunta sobre a tecnologia magnética) — */
-.faq-pergunta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
-.faq-badge { flex-shrink: 0; }
+/* Empilhado (não lado a lado): com o badge na mesma linha, o texto da
+   pergunta começava depois dele e desalinhava da margem esquerda das
+   outras perguntas. Empilhado, os dois ficam na mesma posição x. */
+.faq-pergunta { display: flex; flex-direction: column; gap: 2px; }
+.faq-badge { align-self: flex-start; line-height: 1; }
 .faq-destaque {
   background: var(--color-accent-100);
   border-bottom-color: transparent;

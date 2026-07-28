@@ -273,7 +273,7 @@ a:hover { color: var(--color-accent-900); text-decoration: underline; }
    pergunta começava depois dele e desalinhava da margem esquerda das
    outras perguntas. Empilhado, os dois ficam na mesma posição x. */
 .faq-pergunta { display: flex; flex-direction: column; gap: 2px; }
-.faq-badge { align-self: flex-start; line-height: 1; }
+.faq-badge { align-self: flex-start; line-height: 1; padding: 0; }
 .faq-destaque {
   background: var(--color-accent-100);
   border-bottom-color: transparent;

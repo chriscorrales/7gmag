@@ -344,6 +344,11 @@ a:hover { color: var(--color-accent-900); text-decoration: underline; }
 .passos-grid { grid-template-columns: 1fr; gap: 28px; margin-top: 44px; }
 .depo-grid { grid-template-columns: 1fr; gap: 20px; margin-top: 40px; }
 .contato-grid { grid-template-columns: 1fr; gap: 32px; }
+/* Formulário de e-mail desativado temporariamente (FORM_EMAIL_ATIVO=false em
+   index.astro) — sem a 2ª coluna, centraliza o conteúdo do WhatsApp sozinho
+   em vez de deixar meia página vazia. Some quando o form for reativado. */
+.contato-grid--simples { max-width: 640px; margin-inline: auto; text-align: center; }
+.contato-grid--simples .btn-contato { margin-inline: auto; }
 
 /* nenhum item de grid pode ser forçado mais largo que a própria coluna —
    é o que evita o estouro horizontal em 280px */
@@ -362,6 +367,7 @@ a:hover { color: var(--color-accent-900); text-decoration: underline; }
   .passos-grid { grid-template-columns: repeat(3, 1fr); }
   .produtos-grid { grid-template-columns: repeat(3, 1fr); }
   .contato-grid { grid-template-columns: 1fr 1fr; }
+  .contato-grid--simples { grid-template-columns: 1fr; }
 }
 
 /* ─── Desktop ─── */

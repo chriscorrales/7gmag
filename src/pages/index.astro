@@ -15,6 +15,13 @@ const WA = 'https://wa.me/5583993727554';
 // endereço fica exposto em HTML estático), trocar só esta linha.
 const EMAIL_LEADS = 'chriscorrales29@gmail.com';
 
+// Desativado a pedido do Christian pra apresentar sem o formulário de
+// e-mail (o form action="mailto:" derruba Boas Práticas de 100 pra 77 no
+// Lighthouse — Mixed Content — e depende do lead ter app de e-mail
+// configurado). Código todo preservado abaixo; reativar é só virar isto
+// pra `true`.
+const FORM_EMAIL_ATIVO = false;
+
 // ── Conteúdo editável pelo CMS (/admin) — vem de src/data/content.json ──
 const { hero, features, catalogo, passos, depoimentos, faqs } = content;
 
@@ -199,16 +206,25 @@ const navLinks = [
 
     <!-- ── Contato ── -->
     <section id="contato" class="section">
-      <div class="contato-grid">
+      <div class={FORM_EMAIL_ATIVO ? 'contato-grid' : 'contato-grid contato-grid--simples'}>
         <div>
           <div class="kicker">Cadastro de revendedor</div>
           <h2 class="h2">Quero ser revendedor 7G Mag</h2>
           <p class="lead lead--contato">
-            Preencha seus dados e nossa equipe entra em contato para explicar as condições de revenda. Prefere algo mais
-            rápido? Chame direto no WhatsApp.
+            {FORM_EMAIL_ATIVO
+              ? 'Preencha seus dados e nossa equipe entra em contato para explicar as condições de revenda. Prefere algo mais rápido? Chame direto no WhatsApp.'
+              : 'Fale direto com a gente no WhatsApp e nossa equipe já te explica as condições de revenda.'}
           </p>
-          <a class="btn btn-secondary btn-contato" href={WA} target="_blank" rel="noopener">Falar agora no WhatsApp</a>
+          <a
+            class={FORM_EMAIL_ATIVO ? 'btn btn-secondary btn-contato' : 'btn btn-primary btn-contato'}
+            href={WA}
+            target="_blank"
+            rel="noopener"
+          >
+            Falar agora no WhatsApp
+          </a>
         </div>
+        {FORM_EMAIL_ATIVO && (
         <div class="card elev-sm card-form">
           <!--
             Sem backend: o formulário abre o app de e-mail do lead com o
@@ -216,6 +232,11 @@ const navLinks = [
             text/plain é o fallback sem JS (funciona nativamente em Firefox/
             Chrome/Safari); o script logo abaixo monta uma mensagem legível
             e assume o clique quando há JS.
+
+            ⚠️ Custo conhecido: action="mailto:" faz o Chrome acusar Mixed
+            Content num form dentro de página https — derruba Boas Práticas
+            de 100 pra 77 no Lighthouse (nada inseguro de verdade é
+            transmitido, é só o aviso do navegador pra scheme não-https).
           -->
           <form
             id="form-revenda"
@@ -287,6 +308,7 @@ const navLinks = [
             })();
           </script>
         </div>
+        )}
       </div>
     </section>
     </main>

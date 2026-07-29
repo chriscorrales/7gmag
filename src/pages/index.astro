@@ -1,5 +1,5 @@
 ---
-import { Image, Picture } from 'astro:assets';
+import { Image, Picture, getImage } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 
 import logo from '../assets/brand/logo.jpeg';
@@ -52,6 +52,15 @@ const produtos = (catalogo?.produtos ?? [])
 // independente do catálogo, para reordenar produtos não trocar o hero à toa.
 const heroImg = resolveProduto(hero.imagem) ?? produtos[0]?.img ?? logo;
 const heroAlt = hero.alt ?? produtos[0]?.alt ?? 'Produto 7G Mag em destaque';
+
+// Vídeo do hero é opcional (campo hero.video no CMS, widget "file" — arquivo
+// vai pra public/videos/, não passa pelo pipeline de otimização de imagem do
+// Astro, então precisa chegar já comprimido). O CMS já grava o caminho com o
+// prefixo /7gmag (mesma convenção do public_folder de uploads no config.yml).
+// Se vazio, mostra a imagem normal. A imagem continua servindo de "poster"
+// (capa) enquanto o vídeo carrega.
+const heroVideo = hero.video || null;
+const heroPoster = (await getImage({ src: heroImg, width: 900 })).src;
 
 const navLinks = [
   { href: '#produtos', label: 'Produtos' },
@@ -112,19 +121,47 @@ const navLinks = [
           </div>
         </div>
         <div class="plate hero-plate">
-          <Picture
-            src={heroImg}
-            alt={heroAlt}
-            formats={['avif']}
-            fallbackFormat="webp"
-            widths={[400, 640, 900, 1280]}
-            sizes="(min-width:1360px) 544px, (min-width:960px) 40vw, 100vw"
-            width={1280}
-            loading="eager"
-          />
+          {heroVideo ? (
+            <video
+              class="hero-video"
+              poster={heroPoster}
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              data-autoplay-respeita-reduced-motion
+            >
+              <source src={heroVideo} type="video/mp4" />
+            </video>
+          ) : (
+            <Picture
+              src={heroImg}
+              alt={heroAlt}
+              formats={['avif']}
+              fallbackFormat="webp"
+              widths={[400, 640, 900, 1280]}
+              sizes="(min-width:1360px) 544px, (min-width:960px) 40vw, 100vw"
+              width={1280}
+              loading="eager"
+            />
+          )}
         </div>
       </div>
     </header>
+
+    {heroVideo && (
+      <script is:inline>
+        (function () {
+          var video = document.querySelector('[data-autoplay-respeita-reduced-motion]');
+          if (!video) return;
+          if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            video.play().catch(function () {
+              /* autoplay bloqueado pelo navegador — fica parado no poster, sem quebrar nada */
+            });
+          }
+        })();
+      </script>
+    )}
 
     <!-- ── Diferenciais ── -->
     <section class="section">

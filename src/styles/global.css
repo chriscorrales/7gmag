@@ -167,7 +167,7 @@ a:hover { color: var(--color-accent-900); text-decoration: underline; }
   outline: 1px solid var(--color-divider);
   overflow: hidden;
 }
-.plate img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.plate img, .plate video { display: block; width: 100%; height: 100%; object-fit: cover; }
 .hero-plate { aspect-ratio: 4 / 3; } /* 4/5 no mobile deixava a imagem alta demais, empurrando os CTAs pra fora da dobra */
 .hero-plate picture { display: contents; } /* <Picture> embrulha o <img> num <picture> — display:contents evita que essa camada extra afete o dimensionamento herdado de .plate img{width:100%;height:100%} */
 .plate--quadrado { aspect-ratio: 1 / 1; }

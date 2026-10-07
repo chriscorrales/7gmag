@@ -5,12 +5,7 @@ import Base from '../layouts/Base.astro';
 import logo from '../assets/brand/logo.jpeg';
 
 import content from '../data/content.json';
-
-const WA = 'https://wa.me/5583993727554';
-
-// Mesmo helper do Base.astro — monta caminhos a partir do BASE_URL em vez de
-// hardcodar "/7gmag" (quebraria ao migrar pro domínio próprio).
-const comBase = (p: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+import { WA, comBase } from '../lib/site';
 
 // ⚠️ TROCAR DEPOIS — e-mail que recebe os cadastros de revendedor.
 // Hoje aponta para o e-mail do desenvolvedor, só pra testar o fluxo.
@@ -25,6 +20,12 @@ const EMAIL_LEADS = 'chriscorrales29@gmail.com';
 // configurado). Código todo preservado abaixo; reativar é só virar isto
 // pra `true`.
 const FORM_EMAIL_ATIVO = false;
+
+// Modal "+ novidades" escondido até a Shirley/Edmilson mandarem fotos e specs
+// reais — o conteúdo atual é placeholder (garantia, peso, cores inventados) e
+// não pode ir pro ar como se fosse fato. Com false, o tile "+ novidades"
+// continua no catálogo mas vira só texto (sem link). Reativar: virar pra `true`.
+const MODAL_NOVIDADES_ATIVO = false;
 
 // ── Conteúdo editável pelo CMS (/admin) — vem de src/data/content.json ──
 const { hero, features, catalogo, passos, depoimentos, faqs } = content;
@@ -55,11 +56,12 @@ const heroAlt = hero.alt ?? produtos[0]?.alt ?? 'Produto 7G Mag em destaque';
 
 // Vídeo do hero é opcional (campo hero.video no CMS, widget "file" — arquivo
 // vai pra public/videos/, não passa pelo pipeline de otimização de imagem do
-// Astro, então precisa chegar já comprimido). O CMS já grava o caminho com o
-// prefixo /7gmag (mesma convenção do public_folder de uploads no config.yml).
+// Astro, então precisa chegar já comprimido). O CMS grava "/videos/arquivo.mp4";
+// o replace tira o prefixo "/7gmag" de uploads feitos antes da migração pro
+// domínio próprio, e o comBase() recoloca o BASE_URL atual.
 // Se vazio, mostra a imagem normal. A imagem continua servindo de "poster"
 // (capa) enquanto o vídeo carrega.
-const heroVideo = hero.video || null;
+const heroVideo = hero.video ? comBase(hero.video.replace(/^\/7gmag(?=\/)/, '')) : null;
 const heroPoster = (await getImage({ src: heroImg, width: 900 })).src;
 
 const navLinks = [
@@ -193,12 +195,21 @@ const navLinks = [
             />
           </div>
         ))}
-        <a href="#novidades" class="plate plate--quadrado plate--mais" aria-haspopup="dialog">
-          <div class="plate-more">
-            <div class="plate-more-title">+ novidades</div>
-            <p>a cada coleção</p>
+        {MODAL_NOVIDADES_ATIVO ? (
+          <a href="#novidades" class="plate plate--quadrado plate--mais" aria-haspopup="dialog">
+            <div class="plate-more">
+              <div class="plate-more-title">+ novidades</div>
+              <p>a cada coleção</p>
+            </div>
+          </a>
+        ) : (
+          <div class="plate plate--quadrado plate--mais">
+            <div class="plate-more">
+              <div class="plate-more-title">+ novidades</div>
+              <p>a cada coleção</p>
+            </div>
           </div>
-        </a>
+        )}
       </div>
     </section>
 
@@ -210,8 +221,10 @@ const navLinks = [
       aria-expanded (documentado em Base.astro/global.css).
 
       Conteúdo é PLACEHOLDER a pedido do Christian — Shirley/Edmilson vão
-      complementar com fotos e specs reais depois.
+      complementar com fotos e specs reais depois. Desligado via
+      MODAL_NOVIDADES_ATIVO (topo do arquivo) até lá.
     -->
+    {MODAL_NOVIDADES_ATIVO && (
     <div id="novidades" class="modal" role="dialog" aria-modal="true" aria-labelledby="novidades-titulo">
       <a href="#produtos" class="modal-fundo" aria-label="Fechar"></a>
       <div class="modal-conteudo card elev-sm">
@@ -239,6 +252,7 @@ const navLinks = [
         <p class="form-hint">* Fotos e especificações de exemplo — em atualização com os dados reais dos produtos.</p>
       </div>
     </div>
+    )}
 
     <!-- ── Como funciona ── -->
     <section id="revenda" class="section">
@@ -275,11 +289,9 @@ const navLinks = [
       <h2 class="h2">Perguntas de quem está começando</h2>
       <div class="faq">
         {faqs.map((f, i) => {
-          // Destaque pontual pra pergunta sobre a tecnologia magnética — casa
-          // pelo texto porque o FAQ é genérico (editável pelo CMS); se a
-          // pergunta for reescrita no painel, o destaque some sozinho até
-          // alguém atualizar este texto aqui também.
-          const destaque = f.pergunta === 'Como funciona a tecnologia magnética?';
+          // Destaque ("Mais perguntada" + link "Saiba mais" pra página de
+          // magnetoterapia) é marcado no CMS, campo "destaque" de cada pergunta.
+          const destaque = 'destaque' in f && f.destaque === true;
           return (
             <details open={i === 0} class={destaque ? 'faq-destaque' : undefined}>
               <summary>

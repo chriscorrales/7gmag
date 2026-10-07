@@ -1,4 +1,7 @@
 {
+  "contato": {
+    "whatsapp": "5583993727554"
+  },
   "hero": {
     "tag": "Nova linha magnética",
     "titulo": "Calçados com tecnologia magnética.",
@@ -96,7 +99,8 @@
   "faqs": [
     {
       "pergunta": "Como funciona a tecnologia magnética?",
-      "resposta": "Nossos calçados e pulseiras contam com ímãs terapêuticos embutidos, associados a conforto e bem-estar no uso diário."
+      "resposta": "Nossos calçados e pulseiras contam com ímãs terapêuticos embutidos, associados a conforto e bem-estar no uso diário.",
+      "destaque": true
     },
     {
       "pergunta": "Preciso ter loja física para revender?",

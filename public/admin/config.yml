@@ -16,7 +16,7 @@ backend:
 # Onde ficam as imagens enviadas pelo painel (ainda não usado no POC —
 # os produtos hoje estão em código; entra quando modelarmos o catálogo).
 media_folder: "public/uploads"
-public_folder: "/7gmag/uploads"
+public_folder: "/uploads"
 
 collections:
   - name: site
@@ -26,8 +26,13 @@ collections:
       - name: home
         label: "Página inicial"
         file: "src/data/content.json"
-        description: "Textos da home: topo, vantagens, passos, depoimentos e dúvidas."
+        description: "Textos da home: contato, topo, vantagens, passos, depoimentos e dúvidas."
         fields:
+          - label: "Contato"
+            name: contato
+            widget: object
+            fields:
+              - { label: "WhatsApp", name: whatsapp, widget: string, pattern: ['^55\d{10,11}$', "Só números, com 55 + DDD + número. Ex.: 5583993727554"], hint: "Usado em todos os botões de WhatsApp do site. Só números: 55 (Brasil) + DDD + número, sem espaço nem traço." }
           - label: "Topo (hero)"
             name: hero
             widget: object
@@ -39,7 +44,7 @@ collections:
               - { label: "Botão secundário", name: cta_secundario, widget: string }
               - { label: "Foto do topo (hero)", name: imagem, widget: image, media_folder: "/src/assets/products", public_folder: "/src/assets/products", hint: "Independente do catálogo abaixo — trocar aqui não reordena os produtos. Também é usada como capa (poster) do vídeo, se você subir um vídeo abaixo." }
               - { label: "Descrição da foto do topo (alt)", name: alt, widget: string }
-              - { label: "Vídeo do topo (opcional)", name: video, widget: file, media_folder: "public/videos", public_folder: "/7gmag/videos", required: false, hint: "Se preencher, o vídeo substitui a foto acima (que continua servindo de capa enquanto ele carrega). Toca sozinho, sem som, em loop — suba um arquivo .mp4 já comprimido e curto (poucos MB, poucos segundos)." }
+              - { label: "Vídeo do topo (opcional)", name: video, widget: file, media_folder: "public/videos", public_folder: "/videos", required: false, hint: "Se preencher, o vídeo substitui a foto acima (que continua servindo de capa enquanto ele carrega). Toca sozinho, sem som, em loop — suba um arquivo .mp4 já comprimido e curto (poucos MB, poucos segundos)." }
           - label: "Vantagens"
             name: features
             widget: list
@@ -86,3 +91,4 @@ collections:
             fields:
               - { label: "Pergunta", name: pergunta, widget: string }
               - { label: "Resposta", name: resposta, widget: text }
+              - { label: "Destacar (\"Mais perguntada\" + link Saiba mais)", name: destaque, widget: boolean, required: false, default: false, hint: "Mostra a etiqueta \"Mais perguntada\" e um link pra página sobre magnetoterapia. Use em uma pergunta só." }

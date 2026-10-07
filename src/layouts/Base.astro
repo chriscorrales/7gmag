@@ -1,16 +1,14 @@
 ---
 import '../styles/global.css';
-import { Font } from 'astro:assets';
+import { Font, getImage } from 'astro:assets';
+import logo from '../assets/brand/logo.jpeg';
+import { comBase, telefoneLd } from '../lib/site';
 
 interface Props {
   title?: string;
   description?: string;
   image?: string;
 }
-
-// Monta caminhos absolutos a partir do BASE_URL em vez de hardcodar "/7gmag" —
-// isso quebraria silenciosamente quando o domínio próprio entrar e base virar "/".
-const comBase = (p: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
 
 const {
   title = '7G Mag — Revenda calçados magnéticos com margem de verdade',
@@ -21,19 +19,24 @@ const {
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL(image, Astro.site).href;
 
+// Logo quadrado pro JSON-LD (o Google prefere logo quadrado nos rich results;
+// o og.jpg é 1200×630). O logo.jpeg é 850×640 com a marca centralizada, então o
+// recorte central 1:1 não corta nada.
+const logoQuadrado = await getImage({ src: logo, width: 512, height: 512, fit: 'cover', format: 'png' });
+
 // Dados estruturados — Organization + Product (ajuda o Google a entender o negócio)
 const orgLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: '7G Mag',
   url: canonical,
-  logo: new URL(comBase('og.jpg'), Astro.site).href,
+  logo: new URL(logoQuadrado.src, Astro.site).href,
   description: 'Fabricante de calçados e acessórios com tecnologia magnética, com programa de revenda em todo o Brasil.',
   sameAs: ['https://www.instagram.com/oficial7gmag'],
   contactPoint: {
     '@type': 'ContactPoint',
     contactType: 'sales',
-    telephone: '+55-83-99372-7554',
+    telephone: telefoneLd,
     areaServed: 'BR',
     availableLanguage: 'Portuguese',
   },

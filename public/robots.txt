@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://chriscorrales.github.io/7gmag/sitemap-index.xml
+Sitemap: https://calcadosmagneticos.com.br/sitemap-index.xml

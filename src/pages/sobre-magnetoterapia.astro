@@ -1,8 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-
-const WA = 'https://wa.me/5583993727554';
-const comBase = (p: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+import { WA, comBase } from '../lib/site';
 ---
 
 <Base

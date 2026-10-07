@@ -1,11 +1,11 @@
 import { defineConfig, fontProviders } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// Site atual: GitHub Pages de projeto -> https://chriscorrales.github.io/7gmag/
-// Ao configurar o domínio próprio: trocar `site` pela URL do domínio e `base` para '/'.
+// Domínio próprio (GitHub Pages com custom domain) -> https://calcadosmagneticos.com.br/
+// O antigo https://chriscorrales.github.io/7gmag/ redireciona pra cá automaticamente.
 export default defineConfig({
-  site: 'https://chriscorrales.github.io',
-  base: '/7gmag',
+  site: 'https://calcadosmagneticos.com.br',
+  base: '/',
   trailingSlash: 'always',
   integrations: [
     sitemap({

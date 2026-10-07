@@ -178,8 +178,8 @@ a:hover { color: var(--color-accent-900); text-decoration: underline; }
 .plate-more { font-family: var(--font-body); color: var(--color-neutral-600); }
 .plate-more-title { font-family: var(--font-heading); font-size: clamp(18px, 1.25vw + 14px, 22px); color: var(--color-text); }
 .plate-more p { margin-top: 8px; font-size: 14px; }
-.plate--mais { cursor: pointer; transition: border-color .15s; }
-.plate--mais:hover { border-color: var(--color-accent); text-decoration: none; }
+a.plate--mais { cursor: pointer; transition: border-color .15s; }
+a.plate--mais:hover { border-color: var(--color-accent); text-decoration: none; }
 
 /* — modal "+ novidades" (CSS puro via :target, sem JS) — */
 .modal { display: none; }

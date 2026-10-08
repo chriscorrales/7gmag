@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import { Font, getImage } from 'astro:assets';
-import logo from '../assets/brand/logo.jpeg';
+import logo from '../assets/brand/logo.png';
 import { comBase, telefoneLd } from '../lib/site';
 
 interface Props {
@@ -11,8 +11,8 @@ interface Props {
 }
 
 const {
-  title = '7G Mag — Revenda calçados magnéticos com margem de verdade',
-  description = 'Torne-se revendedor oficial 7G Mag: calçados e acessórios com tecnologia magnética. Venda pelo celular, sem loja física e sem estoque parado. Fale com um consultor.',
+  title = 'Calçados Magnéticos — Revenda calçados com tecnologia magnética e margem de verdade',
+  description = 'Torne-se revendedor oficial Calçados Magnéticos: calçados e acessórios com tecnologia magnética. Venda pelo celular, sem loja física e sem estoque parado. Fale com um consultor.',
   image = comBase('og.jpg'),
 } = Astro.props;
 
@@ -20,15 +20,16 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL(image, Astro.site).href;
 
 // Logo quadrado pro JSON-LD (o Google prefere logo quadrado nos rich results;
-// o og.jpg é 1200×630). O logo.jpeg é 850×640 com a marca centralizada, então o
-// recorte central 1:1 não corta nada.
-const logoQuadrado = await getImage({ src: logo, width: 512, height: 512, fit: 'cover', format: 'png' });
+// o og.jpg é 1200×630) e favicon — os dois saem do mesmo logo.png (monograma CM,
+// quadrado, fundo transparente).
+const logoQuadrado = await getImage({ src: logo, width: 512, height: 512, format: 'png' });
+const favicon = await getImage({ src: logo, width: 64, height: 64, format: 'png' });
 
 // Dados estruturados — Organization + Product (ajuda o Google a entender o negócio)
 const orgLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: '7G Mag',
+  name: 'Calçados Magnéticos',
   url: canonical,
   logo: new URL(logoQuadrado.src, Astro.site).href,
   description: 'Fabricante de calçados e acessórios com tecnologia magnética, com programa de revenda em todo o Brasil.',
@@ -45,9 +46,9 @@ const orgLd = {
 const productLd = {
   '@context': 'https://schema.org',
   '@type': 'Product',
-  name: 'Calçados magnéticos 7G Mag',
+  name: 'Linha Calçados Magnéticos',
   description: 'Linha de calçados e pulseiras com ímãs terapêuticos embutidos — sandálias, tênis, chinelos e pulseiras, para revenda.',
-  brand: { '@type': 'Brand', name: '7G Mag' },
+  brand: { '@type': 'Brand', name: 'Calçados Magnéticos' },
   category: 'Calçados magnéticos',
 };
 ---
@@ -69,21 +70,21 @@ const productLd = {
 
     <!-- Open Graph / redes sociais (preview no WhatsApp) -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="7G Mag" />
+    <meta property="og:site_name" content="Calçados Magnéticos" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="7G Mag — calçados com tecnologia magnética" />
+    <meta property="og:image:alt" content="Calçados Magnéticos — calçados com tecnologia magnética" />
     <meta property="og:locale" content="pt_BR" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <link rel="icon" href={comBase('favicon.svg')} type="image/svg+xml" />
+    <link rel="icon" href={favicon.src} type="image/png" />
 
     <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
     <script type="application/ld+json" set:html={JSON.stringify(productLd)} />

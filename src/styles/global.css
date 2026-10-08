@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════════════════
-   7G Mag — estilos globais.
+   Calçados Magnéticos — estilos globais.
    Tokens e classes derivados do design system "Classical" (export do Claude
    Design), enxugados para o que o site usa + camada MOBILE-FIRST própria.
    Zero JavaScript.
@@ -316,12 +316,28 @@ a.plate--mais:hover { border-color: var(--color-accent); text-decoration: none; 
 }
 .nav-brand { display: flex; align-items: center; gap: 12px; min-width: 0; color: var(--color-text); }
 .nav-brand:hover { text-decoration: none; }
-.nav-brand .logo { width: 40px; height: 40px; flex: none; object-fit: cover; border-radius: var(--radius-sm); }
-.nav-brand .name { font-family: var(--font-heading); font-size: clamp(17px, 0.94vw + 14px, 20px); font-weight: var(--font-heading-weight); letter-spacing: 0.02em; white-space: nowrap; }
+.nav-brand .logo { width: 36px; height: 36px; flex: none; object-fit: contain; }
+/* "Calçados Magnéticos" não cabe numa linha ao lado do CTA + hambúrguer abaixo
+   de 480px — min-content empilha uma palavra por linha. */
+.nav-brand { gap: 10px; }
+.nav-brand .name { font-family: var(--font-heading); font-size: 16px; line-height: 1.05; font-weight: var(--font-heading-weight); letter-spacing: 0.02em; width: min-content; }
+@media (min-width: 480px) {
+  .nav-brand { gap: 12px; }
+  .nav-brand .logo { width: 40px; height: 40px; }
+  .nav-brand .name { font-size: clamp(17px, 0.94vw + 14px, 20px); line-height: inherit; width: auto; white-space: nowrap; }
+}
 
 .nav-right { display: flex; align-items: center; gap: 8px; }
 .nav-links--desktop { display: none; }
-.nav-cta { display: inline-flex; }
+/* Abaixo de 400px logo + nome + CTA + hambúrguer não cabem numa linha: o CTA
+   sai da barra e entra como último item da gaveta (o hero tem o mesmo CTA logo
+   abaixo, e o WhatsApp flutuante continua visível). */
+.nav-cta { display: none; white-space: nowrap; }
+.nav-links--gaveta .nav-cta-gaveta { color: var(--color-accent-700); font-weight: var(--font-heading-weight); }
+@media (min-width: 400px) {
+  .nav-cta { display: inline-flex; }
+  .nav-links--gaveta .nav-cta-gaveta { display: none; }
+}
 
 .nav-toggle {
   list-style: none;
@@ -392,7 +408,7 @@ a.plate--mais:hover { border-color: var(--color-accent); text-decoration: none; 
   .site-footer { padding-bottom: 44px; } /* FAB vira pílula ancorada no canto, já não se sobrepõe ao rodapé */
 }
 .footer-brand { display: flex; align-items: center; gap: 12px; }
-.footer-logo { border-radius: var(--radius-sm); }
+.footer-logo { object-fit: contain; }
 .footer-copy { font-family: var(--font-body); font-size: 13px; color: var(--color-neutral-600); }
 
 /* grids que empilham no mobile e abrem no desktop */

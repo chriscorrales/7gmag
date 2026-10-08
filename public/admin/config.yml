@@ -1,4 +1,4 @@
-# ── Sveltia CMS — configuração do painel de conteúdo da 7G Mag ──
+# ── Sveltia CMS — configuração do painel de conteúdo da Calçados Magnéticos ──
 # Docs: https://github.com/sveltia/sveltia-cms
 
 backend:
@@ -68,7 +68,7 @@ collections:
                 # frente do produto; o site cuida do resto.
                 fields:
                   - { label: "Foto do produto", name: imagem, widget: image, media_folder: "/src/assets/products", public_folder: "/src/assets/products" }
-                  - { label: "Descrição da foto (alt)", name: alt, widget: string, hint: "Descreve a foto para acessibilidade e Google. Ex.: Sandália salto bloco 7G Mag" }
+                  - { label: "Descrição da foto (alt)", name: alt, widget: string, hint: "Descreve a foto para acessibilidade e Google. Ex.: Sandália salto bloco — Calçados Magnéticos" }
           - label: "Como funciona (passos)"
             name: passos
             widget: list

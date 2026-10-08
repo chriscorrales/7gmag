@@ -1,6 +1,6 @@
-# Site 7G Mag — Revendedores
+# Site Calçados Magnéticos — Revendedores
 
-Landing page de captação de revendedores da 7G Mag (calçados magnéticos). Build estático em **Astro 5**, hospedado no **GitHub Pages** com domínio próprio: **https://calcadosmagneticos.com.br/** (o antigo `chriscorrales.github.io/7gmag/` redireciona pra lá).
+Landing page de captação de revendedores da **Calçados Magnéticos** (antiga 7G Mag — o repositório e as pastas ainda carregam o nome antigo). Build estático em **Astro 5**, hospedado no **GitHub Pages** com domínio próprio: **https://calcadosmagneticos.com.br/** (o antigo `chriscorrales.github.io/7gmag/` redireciona pra lá).
 
 ## Stack
 - **Astro 5** (`astro:assets` — `<Image>`/`<Picture>` com WebP/AVIF automático, sem framework de UI, zero JS no output exceto o script inline do formulário)
@@ -30,7 +30,7 @@ O botão "Enviar cadastro por e-mail" abre o app de e-mail do lead com nome/e-ma
 
 Trade-off aceito: converte pior que um form com backend de verdade (o lead sai do site, precisa ter app de e-mail configurado, e ainda aperta "enviar" de novo lá). Por isso o WhatsApp continua como CTA principal ao lado.
 
-**⚠️ Trocar o e-mail de destino**: hoje `EMAIL_LEADS` em `src/pages/index.astro` aponta pro e-mail pessoal do desenvolvedor, só pra testar o fluxo. Assim que a Shirley/Edmilson definirem o e-mail oficial da 7G Mag, trocar essa única constante — de preferência um alias (`revenda@...`), não uma caixa pessoal, já que o endereço fica exposto em HTML estático (não tem como evitar scraping num link `mailto:` sem quebrar o funcionamento sem JS).
+**⚠️ Trocar o e-mail de destino**: hoje `EMAIL_LEADS` em `src/pages/index.astro` aponta pro e-mail pessoal do desenvolvedor, só pra testar o fluxo. Assim que a Shirley/Edmilson definirem o e-mail oficial da empresa, trocar essa única constante — de preferência um alias (`revenda@...`), não uma caixa pessoal, já que o endereço fica exposto em HTML estático (não tem como evitar scraping num link `mailto:` sem quebrar o funcionamento sem JS).
 
 ## Fontes
 `experimental.fonts` (astro.config.mjs) auto-hospeda Cormorant Garamond + Lora a partir do Google Fonts, sem CDN externo e com fallbacks de métrica casada (evita layout shift na troca de fonte). É uma API experimental do próprio Astro — mas o CI roda `npm ci`, que resolve pelo `package-lock.json` (Astro `5.18.2` pinado), então não muda sozinha sem alguém rodar `npm update` de propósito.
@@ -45,4 +45,5 @@ Trade-off aceito: converte pior que um form com backend de verdade (o lead sai d
 - **WhatsApp:** `+55 83 99372-7554` — editável no CMS ("Contato"); `src/lib/site.ts` monta o link `wa.me` e o telefone do JSON-LD a partir dele.
 - **`EMAIL_LEADS`** ainda é o e-mail pessoal do desenvolvedor (ver seção "Formulário" acima) — pendente de troca.
 - **Modal "+ novidades"** está escondido (`MODAL_NOVIDADES_ATIVO = false` em `index.astro`) porque as specs eram placeholder. Quando chegarem fotos/dados reais, atualizar o conteúdo do modal e virar a flag pra `true`.
-- O JSON-LD `Organization.logo` é um recorte quadrado 512×512 gerado no build a partir de `src/assets/brand/logo.jpeg`.
+- **Logo:** `src/assets/brand/logo.png` (monograma CM, quadrado, fundo transparente — gerado a partir de `Logo monograma elegante em dourado e azul.png` na raiz do projeto, com a margem branca cortada). Dele saem no build o logo da nav/rodapé, o favicon (64×64) e o `Organization.logo` do JSON-LD (512×512).
+- **Instagram:** o link do rodapé e o `sameAs` do JSON-LD ainda apontam pra `@oficial7gmag` — trocar quando a conta for renomeada.

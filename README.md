@@ -46,4 +46,4 @@ Trade-off aceito: converte pior que um form com backend de verdade (o lead sai d
 - **`EMAIL_LEADS`** ainda é o e-mail pessoal do desenvolvedor (ver seção "Formulário" acima) — pendente de troca.
 - **Modal "+ novidades"** está escondido (`MODAL_NOVIDADES_ATIVO = false` em `index.astro`) porque as specs eram placeholder. Quando chegarem fotos/dados reais, atualizar o conteúdo do modal e virar a flag pra `true`.
 - **Logo:** `src/assets/brand/logo.png` (monograma CM, quadrado, fundo transparente — gerado a partir de `Logo monograma elegante em dourado e azul.png` na raiz do projeto, com a margem branca cortada). Dele saem no build o logo da nav/rodapé, o favicon (64×64) e o `Organization.logo` do JSON-LD (512×512).
-- **Instagram:** o link do rodapé e o `sameAs` do JSON-LD ainda apontam pra `@oficial7gmag` — trocar quando a conta for renomeada.
+- **Instagram:** removido temporariamente do rodapé e do JSON-LD (`INSTAGRAM = null` em `src/lib/site.ts`) — a conta antiga era da 7G Mag. Quando a empresa passar a nova, preencher essa constante com o usuário (sem @) e o link volta nos dois lugares.

@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import { Font, getImage } from 'astro:assets';
 import logo from '../assets/brand/logo.png';
-import { comBase, telefoneLd } from '../lib/site';
+import { INSTAGRAM, comBase, telefoneLd } from '../lib/site';
 
 interface Props {
   title?: string;
@@ -33,7 +33,7 @@ const orgLd = {
   url: canonical,
   logo: new URL(logoQuadrado.src, Astro.site).href,
   description: 'Fabricante de calçados e acessórios com tecnologia magnética, com programa de revenda em todo o Brasil.',
-  sameAs: ['https://www.instagram.com/oficial7gmag'],
+  ...(INSTAGRAM && { sameAs: [`https://www.instagram.com/${INSTAGRAM}`] }),
   contactPoint: {
     '@type': 'ContactPoint',
     contactType: 'sales',

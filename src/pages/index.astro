@@ -5,7 +5,7 @@ import Base from '../layouts/Base.astro';
 import logo from '../assets/brand/logo.png';
 
 import content from '../data/content.json';
-import { WA, comBase } from '../lib/site';
+import { WA, INSTAGRAM, comBase } from '../lib/site';
 
 // ⚠️ TROCAR DEPOIS — e-mail que recebe os cadastros de revendedor.
 // Hoje aponta para o e-mail do desenvolvedor, só pra testar o fluxo.
@@ -431,7 +431,9 @@ const navLinks = [
         <Image class="footer-logo" src={logo} alt="Calçados Magnéticos" width={32} height={32} />
         <span class="footer-copy">© 2026 Calçados Magnéticos. Todos os direitos reservados.</span>
       </div>
-      <a href="https://www.instagram.com/oficial7gmag" target="_blank" rel="noopener">@oficial7gmag</a>
+      {INSTAGRAM && (
+        <a href={`https://www.instagram.com/${INSTAGRAM}`} target="_blank" rel="noopener">@{INSTAGRAM}</a>
+      )}
     </footer>
   </div>
 

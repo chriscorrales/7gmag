@@ -14,3 +14,8 @@ export const WA = `https://wa.me/${whatsapp}`;
 
 // Formato do schema.org/JSON-LD: +55-83-99372-7554
 export const telefoneLd = whatsapp.replace(/^(\d{2})(\d{2})(\d+)(\d{4})$/, '+$1-$2-$3-$4');
+
+// Instagram da marca — só o usuário, sem @ (ex.: 'calcadosmagneticos').
+// null = some do rodapé e do JSON-LD. Removido temporariamente: a conta antiga
+// (@oficial7gmag) era da 7G Mag; a nova ainda vai ser passada pela empresa.
+export const INSTAGRAM: string | null = null;
